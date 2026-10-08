@@ -2,6 +2,7 @@
 
 ## 2.0.0
 
+- [Change] Published package name as `@chris.guzik/homebridge-isolarcloud`
 - [New] Optional House Usage, Grid Import, Grid Export and Battery tiles (mapped via `fields` config)
 - [New] Homebridge settings UI (`config.schema.json`)
 - [New] Optional Eve Watts characteristic (`eveCharacteristics`)

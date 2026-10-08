@@ -1,5 +1,5 @@
 {
-  "name": "@chris.guzik/homebridge-platform-isolarcloud",
+  "name": "@chris.guzik/homebridge-isolarcloud",
   "version": "2.0.0",
   "description": "Homebridge plugin for Sungrow iSolarCloud: solar, house usage and grid import/export as HomeKit sensors.",
   "dependencies": {

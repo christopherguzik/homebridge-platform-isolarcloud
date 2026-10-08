@@ -1,4 +1,4 @@
-# homebridge-platform-isolarcloud
+# homebridge-isolarcloud
 
 Homebridge plugin for **Sungrow iSolarCloud**. Shows your solar generation in HomeKit, plus house usage and grid import/export if your plant reports them.
 
@@ -21,7 +21,7 @@ Optionally, `eveCharacteristics` adds a real **Watts** reading for the **Eve** a
 ## Installation
 
 ```
-npm install -g @chris.guzik/homebridge-platform-isolarcloud
+npm install -g @chris.guzik/homebridge-isolarcloud
 ```
 
 Requires Node 18+ and Homebridge 1.6+. Configure it in the Homebridge UI, or edit `config.json`.
@@ -77,6 +77,8 @@ If no house or grid fields appear, your plant may not have a meter that reports 
 ## Upgrading from 1.x
 
 Your existing solar tile is kept. Node 18+ is now required.
+
+The npm package is now named `@chris.guzik/homebridge-isolarcloud`. If you installed the previous package name, uninstall it and install this package; keep the Homebridge platform configuration unchanged.
 
 ## License
 
