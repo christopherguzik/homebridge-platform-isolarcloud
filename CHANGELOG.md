@@ -1,5 +1,9 @@
 # Changes
 
+## 2.1.0
+
+- [New] Optional Solar to House, Solar to Grid and Grid to House tiles (mapped via `fields` config)
+
 ## 2.0.0
 
 - [New] Optional House Usage, Grid Import, Grid Export and Battery tiles (mapped via `fields` config)

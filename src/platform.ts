@@ -33,6 +33,9 @@ const EXTRA_TILES: { key: string; label: string }[] = [
   { key: 'house', label: 'House Usage' },
   { key: 'gridImport', label: 'Grid Import' },
   { key: 'gridExport', label: 'Grid Export' },
+  { key: 'solarToHouse', label: 'Solar to House' },
+  { key: 'solarToGrid', label: 'Solar to Grid' },
+  { key: 'gridToHouse', label: 'Grid to House' },
   { key: 'battery', label: 'Battery' },
 ];
 

@@ -93,6 +93,18 @@
             "title": "Grid export field",
             "type": "string"
           },
+          "solarToHouse": {
+            "title": "Solar to house field",
+            "type": "string"
+          },
+          "solarToGrid": {
+            "title": "Solar to grid field",
+            "type": "string"
+          },
+          "gridToHouse": {
+            "title": "Grid to house field",
+            "type": "string"
+          },
           "battery": {
             "title": "Battery field",
             "type": "string"
