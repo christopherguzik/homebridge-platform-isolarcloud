@@ -21,7 +21,7 @@ Optionally, `eveCharacteristics` adds a real **Watts** reading for the **Eve** a
 ## Installation
 
 ```
-npm install -g @christopherguzik/homebridge-platform-isolarcloud
+npm install -g @chris.guzik/homebridge-platform-isolarcloud
 ```
 
 Requires Node 18+ and Homebridge 1.6+. Configure it in the Homebridge UI, or edit `config.json`.
