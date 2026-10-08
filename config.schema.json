@@ -1,0 +1,104 @@
+{
+  "pluginAlias": "ISolarCloud",
+  "pluginType": "platform",
+  "singular": true,
+  "headerDisplay": "Sungrow iSolarCloud. Enter your login, then (optionally) map House/Grid fields. See the README for how to find them.",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "title": "Name",
+        "type": "string",
+        "default": "ISolarCloud",
+        "required": true
+      },
+      "server": {
+        "title": "Server",
+        "type": "string",
+        "default": "Australian",
+        "oneOf": [
+          {
+            "title": "Australian",
+            "enum": [
+              "Australian"
+            ]
+          },
+          {
+            "title": "European",
+            "enum": [
+              "European"
+            ]
+          },
+          {
+            "title": "Chinese",
+            "enum": [
+              "Chinese"
+            ]
+          },
+          {
+            "title": "International",
+            "enum": [
+              "International"
+            ]
+          }
+        ],
+        "required": true
+      },
+      "email": {
+        "title": "Email",
+        "type": "string",
+        "format": "email",
+        "required": true
+      },
+      "password": {
+        "title": "Password",
+        "type": "string",
+        "required": true,
+        "x-schema-form": {
+          "type": "password"
+        }
+      },
+      "pollSeconds": {
+        "title": "Update interval (seconds)",
+        "type": "integer",
+        "default": 60,
+        "minimum": 30
+      },
+      "eveCharacteristics": {
+        "title": "Add Eve Watts characteristic",
+        "type": "boolean",
+        "default": false,
+        "description": "Shows real Watts in the Eve app. Live value only (no history graph)."
+      },
+      "logRaw": {
+        "title": "Log raw iSolarCloud data (for finding field names)",
+        "type": "boolean",
+        "default": false,
+        "description": "Prints all fields to the log. Turn off afterwards and remove personal details before sharing logs."
+      },
+      "fields": {
+        "title": "Field mapping (optional)",
+        "type": "object",
+        "description": "Field names from the raw log. Only tiles with a field set are created.",
+        "properties": {
+          "house": {
+            "title": "House usage field",
+            "type": "string"
+          },
+          "gridImport": {
+            "title": "Grid import field",
+            "type": "string"
+          },
+          "gridExport": {
+            "title": "Grid export field",
+            "type": "string"
+          },
+          "battery": {
+            "title": "Battery field",
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
