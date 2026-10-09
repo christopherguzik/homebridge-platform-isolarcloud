@@ -249,7 +249,7 @@ export class ISolarCloudPowerStationsAPI {
         if (logRaw) this.log.info('RAW getPsDetail result_data = ' + JSON.stringify(data));
 
         const result: { [key: string]: number | undefined } = {};
-        result['solar'] = readWatts(data, 'curr_power');
+        result['solar'] = readWatts(data, fields['solar'] || 'curr_power');
         for (const key of Object.keys(fields)) {
             result[key] = readWatts(data, fields[key]);
         }

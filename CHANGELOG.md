@@ -1,5 +1,10 @@
 # Changes
 
+## 2.1.1
+
+- [New] Solar and House Usage are enabled by default with configurable field paths and enable/disable options
+- [Change] House Usage defaults to the live `p83106_map` Load Power value
+
 ## 2.1.0
 
 - [New] Optional Solar to House, Solar to Grid and Grid to House tiles (mapped via `fields` config)

@@ -10,8 +10,8 @@ HomeKit has no native solar/energy accessory, so each value is a **light sensor*
 
 | Tile | Created when |
 |---|---|
-| Solar | Always |
-| House Usage | `fields.house` is set |
+| Solar | Enabled by default (`showSolar`); uses `curr_power` by default |
+| House Usage | Enabled by default (`showHouse`); uses `p83106_map` by default |
 | Grid Import | `fields.gridImport` is set |
 | Grid Export | `fields.gridExport` is set |
 | Solar to House | `fields.solarToHouse` is set |
@@ -40,8 +40,11 @@ Requires Node 18+ and Homebridge 1.6+. Configure it in the Homebridge UI, or edi
   "password": "your-password",
   "pollSeconds": 60,
   "eveCharacteristics": false,
+  "showSolar": true,
+  "showHouse": true,
   "fields": {
-    "house": "",
+    "solar": "curr_power",
+    "house": "p83106_map",
     "gridImport": "",
     "gridExport": "",
     "solarToHouse": "",
@@ -57,8 +60,9 @@ Requires Node 18+ and Homebridge 1.6+. Configure it in the Homebridge UI, or edi
 | `email`, `password` | Your iSolarCloud login |
 | `pollSeconds` | Update interval, minimum 30 (default 60) |
 | `eveCharacteristics` | Add Eve Watts characteristic |
+| `showSolar`, `showHouse` | Enable or disable the Solar and House Usage tiles (default `true`) |
 | `logRaw` | Log all iSolarCloud fields (for setup) |
-| `fields.*` | Field names for the extra tiles (see below) |
+| `fields.*` | Override the default Solar/House field paths or map optional flow tiles (see below) |
 
 ## Setting up House / Grid flow tiles
 
@@ -69,7 +73,7 @@ Field names depend on your plant, so you map them yourself once:
 3. Find the fields holding live power for house usage, grid import/export, and (if provided) each direction of flow. Values can be plain numbers or `{ "value": ..., "unit": "kW" }`, and kW is converted to watts automatically. Nested fields use dots, e.g. `"load.value"`.
 4. Put those names under the matching `fields` keys, set `logRaw` back to `false`, and restart. A tile is created only when its field path is configured.
 
-`House Usage` is total home load. `Grid Import` and `Grid Export` are total grid flows; `Solar to House`, `Solar to Grid`, and `Grid to House` are optional directional measurements, and are created only if iSolarCloud reports those values. The plugin does not infer a flow from total production/consumption because battery charging, battery discharge, and meter placement can make that calculation inaccurate.
+Solar and House Usage are enabled by default and can each be disabled with `showSolar` or `showHouse`. Their field paths default to `curr_power` and `p83106_map`; set `fields.solar` or `fields.house` to a different path to override them. `Grid Import`, `Grid Export`, `Solar to House`, `Solar to Grid`, `Grid to House`, and `Battery` remain optional custom field mappings and are created only when configured. Sungrow exposes some flow points only through other data responses, and availability varies by plant. The plugin does not infer a flow from total production/consumption because battery charging, battery discharge, and meter placement can make that calculation inaccurate.
 
 Check the log carefully before sharing it online, as it may contain names, addresses and plant IDs.
 

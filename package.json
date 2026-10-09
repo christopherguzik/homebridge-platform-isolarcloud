@@ -1,6 +1,6 @@
 {
   "name": "@chris.guzik/homebridge-platform-isolarcloud",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Homebridge plugin for Sungrow iSolarCloud: solar, house usage and grid import/export as HomeKit sensors.",
   "dependencies": {
     "crypto-js": "^4.2.0",

@@ -70,6 +70,16 @@
         "default": false,
         "description": "Shows real Watts in the Eve app. Live value only (no history graph)."
       },
+      "showSolar": {
+        "title": "Enable Solar tile",
+        "type": "boolean",
+        "default": true
+      },
+      "showHouse": {
+        "title": "Enable House Usage tile",
+        "type": "boolean",
+        "default": true
+      },
       "logRaw": {
         "title": "Log raw iSolarCloud data (for finding field names)",
         "type": "boolean",
@@ -79,11 +89,17 @@
       "fields": {
         "title": "Field mapping (optional)",
         "type": "object",
-        "description": "Field names from the raw log. Only tiles with a field set are created.",
+        "description": "Set a field to override its default. Leave optional flow fields blank to keep those tiles disabled.",
         "properties": {
+          "solar": {
+            "title": "Solar field",
+            "type": "string",
+            "default": "curr_power"
+          },
           "house": {
             "title": "House usage field",
-            "type": "string"
+            "type": "string",
+            "default": "p83106_map"
           },
           "gridImport": {
             "title": "Grid import field",

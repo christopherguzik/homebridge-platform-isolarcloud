@@ -49,6 +49,8 @@ class PlatformISolarCloud {
   private readonly email: string = "";
   private readonly password: string = "";
   private readonly fields: { [key: string]: string } = {};
+  private readonly showSolar: boolean = true;
+  private readonly showHouse: boolean = true;
   private readonly logRaw: boolean = false;
   private readonly eve: boolean = false;
   private readonly pollSeconds: number = 60;
@@ -63,7 +65,14 @@ class PlatformISolarCloud {
     this.server = config["server"];
     this.email = config["email"];
     this.password = config["password"];
-    this.fields = config["fields"] || {};
+    const configuredFields = config["fields"] || {};
+    this.fields = {
+      ...configuredFields,
+      solar: configuredFields.solar || 'curr_power',
+      house: configuredFields.house || 'p83106_map',
+    };
+    this.showSolar = config["showSolar"] !== false;
+    this.showHouse = config["showHouse"] !== false;
     this.logRaw = !!config["logRaw"];
     this.eve = !!config["eveCharacteristics"];
     this.pollSeconds = Math.max(30, Number(config["pollSeconds"]) || 60);
@@ -88,12 +97,21 @@ class PlatformISolarCloud {
     const tiles: { [key: string]: Tile } = {};
 
     // Solar tile keeps the ORIGINAL uuid so existing installs keep their tile
-    tiles['solar'] = this.getOrCreateTile(hap.uuid.generate(powerStation.id), powerStation.name);
+    const solarUuid = hap.uuid.generate(powerStation.id);
+    if (this.showSolar) {
+      tiles['solar'] = this.getOrCreateTile(solarUuid, powerStation.name);
+    } else {
+      this.removeAccessory(solarUuid);
+    }
 
     EXTRA_TILES.forEach(tile => {
-      if (this.fields[tile.key]) {
+      if (tile.key === 'house' && !this.showHouse) {
+        this.removeAccessory(hap.uuid.generate(powerStation.id + '-' + tile.key));
+      } else if (this.fields[tile.key]) {
         const name = powerStation.name + ' ' + tile.label;
         tiles[tile.key] = this.getOrCreateTile(hap.uuid.generate(powerStation.id + '-' + tile.key), name);
+      } else {
+        this.removeAccessory(hap.uuid.generate(powerStation.id + '-' + tile.key));
       }
     });
 
@@ -107,7 +125,7 @@ class PlatformISolarCloud {
         Object.keys(tiles).forEach(key => {
           const watts = values[key];
           if (watts === undefined) {
-            const source = key === 'solar' ? 'curr_power' : `fields.${key}`;
+            const source = `fields.${key}`;
             this.log.warn(`No value found for "${key}" at "${source}" (enable logRaw to inspect the data)`);
             return;
           }
@@ -161,6 +179,16 @@ class PlatformISolarCloud {
       tile.eveWatts = this.getOrCreateEveWatts(accessory, name);
     }
     return tile;
+  }
+
+
+  removeAccessory(uuid: string) {
+    const accessory = this.accessories[uuid];
+    if (!accessory) return;
+
+    this.log.info('Removing disabled accessory', accessory.displayName);
+    this.api.unregisterPlatformAccessories(PluginName, PlatformName, [accessory]);
+    delete this.accessories[uuid];
   }
 
 
